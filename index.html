@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIMPULITAN</title>
+    <title> KIMPULITAN DADDY </title>
     <!-- Menambahkan font serif yang elegan untuk nuansa kontrak -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -504,14 +504,11 @@
     </style>
 </head>
 <body>
-    <!-- Landing Page yang sudah dimodifikasi -->
+    <!-- Landing Page -->
     <div class="landing-page" id="landingPage">
-        <!-- PENAMBAHAN: Layar pemicu audio -->
         <div class="start-trigger" id="startTrigger" onclick="startExperience()">
             [ Mulai ]
         </div>
-        
-        <!-- Kontainer kontrak sekarang disembunyikan secara default -->
         <div class="contract-container hidden" id="contractContainer">
             <p class="contract-line">Welcome to the Velvet Room.</p>
             <p class="contract-line">This place exists between dream and reality, mind and matter.</p>
@@ -523,7 +520,7 @@
         </div>
     </div>
 
-    <!-- Main Birthday Content (FIX: KONTEN LENGKAP DIKEMBALIKAN) -->
+    <!-- Main Birthday Content -->
     <div class="main-content" id="mainContent">
         <!-- Hero Section -->
         <div class="section hero-section">
@@ -573,7 +570,7 @@
         <!-- Video Section -->
         <div class="section video-section">
             <h2 class="section-title">📺 Video Special buat Salman!</h2>
-            <p class="section-subtitle">Klik untuk nonton video spesial!</p>
+            <p class="section-subtitle">Klik placeholder untuk nonton video spesial!</p>
             <div class="video-container">
                 <div class="video-placeholder" id="videoPlaceholder" onclick="loadVideo()">
                     <div style="font-size: 4em; margin-bottom: 20px;">🎬</div>
@@ -582,9 +579,9 @@
                 </div>
                 <iframe class="youtube-player" id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <button class="btn" onclick="loadVideo()">🎥 Muat Video</button>
+            <!-- MODIFIKASI: Tombol ini sekarang menjadi tombol prank -->
+            <button class="btn" onclick="prankRickRoll()">🎁 Klik untuk Play Video!</button>
             <button class="btn" onclick="hideVideo()" style="background: linear-gradient(45deg, #ff4757, #ff6b7a);">❌ Sembunyikan Video</button>
-            <p style="color: white; font-size: 1.1em; margin-top: 20px;">Video akan dimuat langsung di halaman ini! 🎬</p>
         </div>
 
         <!-- Message Section -->
@@ -598,7 +595,7 @@
     </div>
 
     <script>
-        // FIX: Mencegah scrolling saat landing page aktif
+        // Mencegah scrolling saat landing page aktif
         document.body.style.overflow = 'hidden';
 
         let musicPlaying = false;
@@ -607,12 +604,12 @@
         const birthdayMessages = [
             "🎉 Semoga aura femboy nya berkurang! 🎉",
             "🌟 Socrates Pasti Mati... Tapi Salman akan selalu di hati. 🌟",
-            "🎈 Mudah mudahan, Salman meunang Finesh! 🎈",
-            "🎂 jamal jangan emosi dengar MBG lgi ya 🎂",
-            "✨ Teman sepertimu bikin hari-hari terasa lebih menyenangkan. Kehadiranmu itu berharga. ✨",
+            "🎈 Mudah mudahan, Salman meunang Fineshyt! 🎈",
+            "🎂 Happy repeat year mal, terimakasih telah bertahan sampai ke titik ini yaa!! Semoga mi ayam skibidi memberkati mu ihihihi :>! 🎂",
+            "✨ Aya is the sweetest, ethereal, kind, handsome, pretty, beautiful, majestic person. Happy birthday jamal-, i mean Aya (Love from me)! ✨",
             "🎊 Aa sunda yang sayang adek. 🎊",
-            "💫 Aya is the sweetest, ethereal, kind, handsome, pretty, beautiful, majestic person. Happy birthday jamal-, i mean Aya (Love from me) 💫",
-            "🎁 Happy repeat year mal, terimakasih telah bertahan sampai ke titik ini yaa!! Semoga mi ayam skibidi memberkati mu ihihihi :> 🎁"
+            "💫 Teman sepertimu bikin hari-hari terasa lebih menyenangkan. Kehadiranmu itu berharga. 💫",
+            "🎁 jamal jangan emosi dengar MBG lgi ya 🎁"
         ];
         
         // Musik untuk halaman utama
@@ -620,25 +617,16 @@
         audio.loop = true;
         audio.volume = 0.2;
 
-        // --- PENAMBAHAN MUSIK UNTUK LANDING PAGE ---
-        // GANTI 'velvet_room.mp3' DENGAN NAMA FILE AUDIO ANDA
+        // Musik untuk landing page
         const velvetAudio = new Audio('velvet_room.mp3');
         velvetAudio.loop = true;
         velvetAudio.volume = 0.5;
         
-        // --- MODIFIKASI: Fungsi baru untuk memulai pengalaman ---
         function startExperience() {
-            // Putar audio setelah ada interaksi
             velvetAudio.play().catch(error => console.log("Gagal memutar audio:", error));
-
-            // Sembunyikan tombol "Mulai"
             document.getElementById('startTrigger').classList.add('hidden');
-            
-            // Tampilkan kontainer kontrak
             document.getElementById('contractContainer').classList.remove('hidden');
         }
-        
-        // Hapus pemanggilan playIntroMusic() dari sini karena sekarang dipanggil oleh startExperience()
 
         function getYouTubeVideoId(url) {
             const regex = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&\n?#]+)/;
@@ -646,36 +634,29 @@
             return match ? match[1] : null;
         }
 
-        // --- MODIFIKASI FUNGSI enterBirthdayPage ---
         function enterBirthdayPage() {
-            // Hentikan musik landing page dengan efek fade out
             let fadeOut = setInterval(function () {
-                // Turunkan volume secara bertahap
                 if (velvetAudio.volume > 0.05) {
                     velvetAudio.volume -= 0.05;
                 } else {
-                    // Hentikan interval, pause, dan reset audio
                     clearInterval(fadeOut);
                     velvetAudio.pause();
                     velvetAudio.currentTime = 0;
                 }
-            }, 80); // Lakukan setiap 80ms untuk fade out yang halus
+            }, 80); 
 
             const landingPage = document.getElementById('landingPage');
             const mainContent = document.getElementById('mainContent');
             
-            // Sembunyikan landing page
             landingPage.classList.add('hidden');
 
-            // FIX: Kembalikan fungsi scroll dan hapus landing page dari layout setelah transisi
             document.body.style.overflow = 'auto';
             setTimeout(() => {
-                landingPage.style.display = 'none'; // Hapus total landing page dari tampilan
+                landingPage.style.display = 'none';
                 mainContent.classList.add('show');
                 addConfetti();
-            }, 1000); // Samakan dengan durasi transisi CSS (1s)
+            }, 1000);
         }
-        // --- AKHIR MODIFIKASI ---
 
         function createPopSound() {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -795,6 +776,13 @@
             
             player.src = '';
         }
+        
+        // --- PENAMBAHAN FUNGSI PRANK ---
+        function prankRickRoll() {
+            // Membuka link di tab baru agar tidak mengganggu halaman utama
+            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+        }
+        // --- AKHIR PENAMBAHAN ---
 
         function showMessage() {
             const messageArea = document.getElementById('messageArea');
@@ -826,4 +814,5 @@
     </script>
 </body>
 </html>
+
 
