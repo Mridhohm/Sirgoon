@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIMPULITAN</title>
+    <!-- Menambahkan font serif yang elegan untuk nuansa kontrak -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            /* FIX: Menggabungkan gradient animasi dan gambar latar belakang dengan benar */
+            background: 
+                linear-gradient(45deg, rgba(255, 107, 107, 0.6), rgba(78, 205, 196, 0.6), rgba(69, 183, 209, 0.6), rgba(249, 202, 36, 0.6)),
+                url(kraton.jpg);
+            background-size: 400% 400%, cover; /* Ukuran untuk gradient dan gambar */
+            background-attachment: scroll, fixed; /* Gradient ikut scroll, gambar tetap */
+            background-position: 0% 50%, center center; /* Posisi awal untuk keduanya */
+            animation: gradientShift 8s ease infinite;
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- START MODIFIKASI LANDING PAGE --- */
+
+        /* Mengubah total style landing page menjadi ala Velvet Room */
+        .landing-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000; /* Latar belakang hitam pekat */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            font-family: 'Cinzel', serif; /* Menggunakan font Persona-esque */
+        }
+
+        .landing-page.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* PENAMBAHAN: Layar pemicu untuk memulai audio */
+        .start-trigger {
+            color: #ccc;
+            font-size: 1.5em;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            border: 1px solid #555;
+            padding: 15px 30px;
+        }
+
+        .start-trigger.hidden {
+            display: none;
+        }
+        /* AKHIR PENAMBAHAN */
+
+        .contract-container {
+            width: 80%;
+            max-width: 700px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        /* MODIFIKASI: Awalnya disembunyikan */
+        .contract-container.hidden {
+            display: none;
+        }
+
+        /* Styling untuk setiap baris teks "kontrak" */
+        .contract-line {
+            font-size: 1.5em;
+            margin: 15px 0;
+            opacity: 0; /* Awalnya transparan */
+            animation: fadeIn 2s forwards; /* Animasi muncul perlahan */
+        }
+
+        /* Memberikan delay berbeda untuk setiap baris agar muncul satu per satu */
+        .contract-line:nth-child(1) { animation-delay: 1s; }
+        .contract-line:nth-child(2) { animation-delay: 4s; }
+        .contract-line:nth-child(3) { animation-delay: 8s; }
+        .contract-line:nth-child(4) { animation-delay: 12s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Tombol untuk "menandatangani" kontrak */
+        .contract-signature {
+            font-size: 1.2em;
+            color: #ccc;
+            background: none;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            margin-top: 40px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            animation-delay: 15s; /* Muncul paling akhir */
+            letter-spacing: 2px;
+        }
+
+        .contract-signature:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 15px #fff;
+        }
+
+        /* --- END MODIFIKASI LANDING PAGE --- */
+
+
+        /* Main page styles */
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease 0.5s;
+            width: 100%; /* Memastikan konten utama mengambil lebar penuh */
+        }
+
+        .main-content.show {
+            opacity: 1;
+        }
+
+        /* Full screen sections */
+        .section {
+            min-height: 100vh;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Header Section */
+        .hero-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .birthday-title {
+            font-size: 4em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .friend-name {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            padding: 10px 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            font-size: 1.2em;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Balloon Section */
+        .balloon-section {
+            background: rgba(255,192,203,0.2);
+        }
+
+        .balloons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .balloon {
+            width: 80px;
+            height: 100px;
+            border-radius: 50px 50px 50px 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .balloon:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .balloon:before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            width: 2px;
+            height: 60px;
+            background: #333;
+            transform: translateX(-50%);
+        }
+
+        .balloon1 { background: #ff6b6b; animation-delay: 0s; }
+        .balloon2 { background: #4ecdc4; animation-delay: 0.5s; }
+        .balloon3 { background: #45b7d1; animation-delay: 1s; }
+        .balloon4 { background: #f9ca24; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Cake Section */
+        .cake-section {
+            background: rgba(139,69,19,0.1);
+        }
+
+        .cake {
+            width: 250px;
+            height: 200px;
+            background: #8B4513;
+            border-radius: 15px;
+            margin: 30px auto;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cake:hover {
+            transform: scale(1.05);
+        }
+
+        .cake-layer {
+            width: 220px;
+            height: 50px;
+            background: #FFB6C1;
+            border-radius: 25px;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+        }
+
+        .cake-layer:after {
+            content: '';
+            width: 200px;
+            height: 40px;
+            background: #FF69B4;
+            border-radius: 20px;
+            position: absolute;
+            left: 10px;
+            top: 5px;
+        }
+
+        .candles {
+            display: flex;
+            justify-content: space-around;
+            position: absolute;
+            top: -40px;
+            width: 100%;
+            padding: 0 30px;
+        }
+
+        .candle {
+            width: 10px;
+            height: 40px;
+            background: #fff;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .flame {
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, #ffeb3b, #ff9800);
+            border-radius: 50% 50% 50% 0;
+            position: absolute;
+            top: -12px;
+            left: -2.5px;
+            transform: rotate(-45deg);
+            animation: flicker 1s ease-in-out infinite alternate;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes flicker {
+            0% { transform: rotate(-45deg) scale(1); }
+            100% { transform: rotate(-45deg) scale(1.1); }
+        }
+
+        .blown-out {
+            opacity: 0;
+        }
+
+        /* Music Section */
+        .music-section {
+            background: rgba(102,126,234,0.2);
+        }
+
+        .play-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            font-size: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 30px 0;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Video Section */
+        .video-section {
+            background: rgba(255,99,71,0.2);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 30px 0;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .video-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .video-placeholder.hidden {
+            display: none;
+        }
+
+        .youtube-player {
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        .youtube-player.show {
+            display: block;
+        }
+
+        /* Message Section */
+        .message-section {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .message-area {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            max-width: 600px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 3em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2em;
+            color: white;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0932b;
+            animation: confetti-fall 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 2.5em;
+            }
+            .friend-name {
+                font-size: 1.8em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .balloons-container {
+                gap: 10px;
+            }
+            .balloon {
+                width: 60px;
+                height: 80px;
+            }
+            .video-placeholder, .youtube-player {
+                height: 250px;
+            }
+            /* Menyesuaikan ukuran font kontrak untuk mobile */
+            .contract-line {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page yang sudah dimodifikasi -->
+    <div class="landing-page" id="landingPage">
+        <!-- PENAMBAHAN: Layar pemicu audio -->
+        <div class="start-trigger" id="startTrigger" onclick="startExperience()">
+            [ Mulai ]
+        </div>
+        
+        <!-- Kontainer kontrak sekarang disembunyikan secara default -->
+        <div class="contract-container hidden" id="contractContainer">
+            <p class="contract-line">Welcome to the Velvet Room.</p>
+            <p class="contract-line">This place exists between dream and reality, mind and matter.</p>
+            <p class="contract-line">A contract has been made, guiding the fate of your special day.</p>
+            <p class="contract-line">You shall now undergo rehabilitation... towards a grand celebration.</p>
+            <button class="contract-signature" onclick="enterBirthdayPage()">
+                [ Accept your fate ]
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Birthday Content (FIX: KONTEN LENGKAP DIKEMBALIKAN) -->
+    <div class="main-content" id="mainContent">
+        <!-- Hero Section -->
+        <div class="section hero-section">
+            <h1 class="birthday-title">🎉 WILUJENG TEPANG TAUN 🎉</h1>
+            <div class="friend-name" id="friendName">Salman Septiana Rohendi!</div>
+            <div class="scroll-hint">👇 Scroll untuk More 👇</div>
+        </div>
+
+        <!-- Balloon Section -->
+        <div class="section balloon-section">
+            <h2 class="section-title">🎈 Pepeuskeun balon na!</h2>
+            <p class="section-subtitle">Click each balloon to pop it!</p>
+            <div class="balloons-container">
+                <div class="balloon balloon1" onclick="popBalloon(this)"></div>
+                <div class="balloon balloon2" onclick="popBalloon(this)"></div>
+                <div class="balloon balloon3" onclick="popBalloon(this)"></div>
+                <div class="balloon balloon4" onclick="popBalloon(this)"></div>
+            </div>
+            <button class="btn" onclick="resetBalloons()">Reset Balloons</button>
+        </div>
+
+        <!-- Cake Section -->
+        <div class="section cake-section">
+            <h2 class="section-title">🎂 Terus berharap!</h2>
+            <p class="section-subtitle">Klik lilin untuk niup!</p>
+            <div class="cake" onclick="playMusic()">
+                <div class="cake-layer"></div>
+                <div class="candles">
+                    <div class="candle" onclick="event.stopPropagation(); blowCandle(this)"><div class="flame"></div></div>
+                    <div class="candle" onclick="event.stopPropagation(); blowCandle(this)"><div class="flame"></div></div>
+                    <div class="candle" onclick="event.stopPropagation(); blowCandle(this)"><div class="flame"></div></div>
+                    <div class="candle" onclick="event.stopPropagation(); blowCandle(this)"><div class="flame"></div></div>
+                    <div class="candle" onclick="event.stopPropagation(); blowCandle(this)"><div class="flame"></div></div>
+                </div>
+            </div>
+            <button class="btn" onclick="relightCandles()">Relight Candles</button>
+        </div>
+
+        <!-- Music Section -->
+        <div class="section music-section">
+            <h2 class="section-title">🎵 SOCIAL LINK STAT++</h2>
+            <p class="section-subtitle">Klik untuk vibing!</p>
+            <button class="play-button" onclick="toggleMusic()" id="playBtn">▶</button>
+            <p style="color: white; font-size: 1.1em; margin-top: 20px;">HIT IT JAMAL!'</p>
+        </div>
+
+        <!-- Video Section -->
+        <div class="section video-section">
+            <h2 class="section-title">📺 Video Special buat Salman!</h2>
+            <p class="section-subtitle">Klik untuk nonton video spesial!</p>
+            <div class="video-container">
+                <div class="video-placeholder" id="videoPlaceholder" onclick="loadVideo()">
+                    <div style="font-size: 4em; margin-bottom: 20px;">🎬</div>
+                    <h3 style="color: white; margin-bottom: 10px;">Click untuk nonton video!</h3>
+                    <p style="color: white; opacity: 0.8;">Video akan dimuat langsung di halaman ini</p>
+                </div>
+                <iframe class="youtube-player" id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <button class="btn" onclick="loadVideo()">🎥 Muat Video</button>
+            <button class="btn" onclick="hideVideo()" style="background: linear-gradient(45deg, #ff4757, #ff6b7a);">❌ Sembunyikan Video</button>
+            <p style="color: white; font-size: 1.1em; margin-top: 20px;">Video akan dimuat langsung di halaman ini! 🎬</p>
+        </div>
+
+        <!-- Message Section -->
+        <div class="section message-section">
+            <h2 class="section-title">💌 Ucapan dari para NPC </h2>
+            <div class="message-area" id="messageArea">
+                Klik tombol di bawah untuk mendapatkan ucapan! 🎉
+            </div>
+            <button class="btn" onclick="showMessage()">Gasskeun!</button>
+        </div>
+    </div>
+
+    <script>
+        // FIX: Mencegah scrolling saat landing page aktif
+        document.body.style.overflow = 'hidden';
+
+        let musicPlaying = false;
+        let messageIndex = 0;
+
+        const birthdayMessages = [
+            "🎉 Semoga aura femboy nya berkurang! 🎉",
+            "🌟 Socrates Pasti Mati... Tapi Salman akan selalu di hati. 🌟",
+            "🎈 Mudah mudahan, Salman meunang Finesh! 🎈",
+            "🎂 jamal jangan emosi dengar MBG lgi ya 🎂",
+            "✨ Teman sepertimu bikin hari-hari terasa lebih menyenangkan. Kehadiranmu itu berharga. ✨",
+            "🎊 Aa sunda yang sayang adek. 🎊",
+            "💫 Aya is the sweetest, ethereal, kind, handsome, pretty, beautiful, majestic person. Happy birthday jamal-, i mean Aya (Love from me) 💫",
+            "🎁 Happy repeat year mal, terimakasih telah bertahan sampai ke titik ini yaa!! Semoga mi ayam skibidi memberkati mu ihihihi :> 🎁"
+        ];
+        
+        // Musik untuk halaman utama
+        const audio = new Audio('song.mp3');
+        audio.loop = true;
+        audio.volume = 0.2;
+
+        // --- PENAMBAHAN MUSIK UNTUK LANDING PAGE ---
+        // GANTI 'velvet_room.mp3' DENGAN NAMA FILE AUDIO ANDA
+        const velvetAudio = new Audio('velvet_room.mp3');
+        velvetAudio.loop = true;
+        velvetAudio.volume = 0.5;
+        
+        // --- MODIFIKASI: Fungsi baru untuk memulai pengalaman ---
+        function startExperience() {
+            // Putar audio setelah ada interaksi
+            velvetAudio.play().catch(error => console.log("Gagal memutar audio:", error));
+
+            // Sembunyikan tombol "Mulai"
+            document.getElementById('startTrigger').classList.add('hidden');
+            
+            // Tampilkan kontainer kontrak
+            document.getElementById('contractContainer').classList.remove('hidden');
+        }
+        
+        // Hapus pemanggilan playIntroMusic() dari sini karena sekarang dipanggil oleh startExperience()
+
+        function getYouTubeVideoId(url) {
+            const regex = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&\n?#]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        // --- MODIFIKASI FUNGSI enterBirthdayPage ---
+        function enterBirthdayPage() {
+            // Hentikan musik landing page dengan efek fade out
+            let fadeOut = setInterval(function () {
+                // Turunkan volume secara bertahap
+                if (velvetAudio.volume > 0.05) {
+                    velvetAudio.volume -= 0.05;
+                } else {
+                    // Hentikan interval, pause, dan reset audio
+                    clearInterval(fadeOut);
+                    velvetAudio.pause();
+                    velvetAudio.currentTime = 0;
+                }
+            }, 80); // Lakukan setiap 80ms untuk fade out yang halus
+
+            const landingPage = document.getElementById('landingPage');
+            const mainContent = document.getElementById('mainContent');
+            
+            // Sembunyikan landing page
+            landingPage.classList.add('hidden');
+
+            // FIX: Kembalikan fungsi scroll dan hapus landing page dari layout setelah transisi
+            document.body.style.overflow = 'auto';
+            setTimeout(() => {
+                landingPage.style.display = 'none'; // Hapus total landing page dari tampilan
+                mainContent.classList.add('show');
+                addConfetti();
+            }, 1000); // Samakan dengan durasi transisi CSS (1s)
+        }
+        // --- AKHIR MODIFIKASI ---
+
+        function createPopSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.type = 'square';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        function popBalloon(balloon) {
+            try {
+                createPopSound();
+            } catch (e) {
+                console.log('Audio context not available');
+            }
+            
+            balloon.style.transform = 'scale(0)';
+            balloon.style.opacity = '0';
+            setTimeout(() => {
+                balloon.style.display = 'none';
+            }, 300);
+        }
+
+        function resetBalloons() {
+            const balloons = document.querySelectorAll('.balloon');
+            balloons.forEach(balloon => {
+                balloon.style.transform = 'scale(1)';
+                balloon.style.opacity = '1';
+                balloon.style.display = 'block';
+            });
+        }
+
+        function blowCandle(candle) {
+            const flame = candle.querySelector('.flame');
+            flame.classList.add('blown-out');
+            
+            const allFlames = document.querySelectorAll('.flame');
+            const blownOut = document.querySelectorAll('.blown-out');
+            if (allFlames.length === blownOut.length) {
+                setTimeout(() => {
+                    addConfetti();
+                    showMessage();
+                }, 500);
+            }
+        }
+
+        function relightCandles() {
+            const flames = document.querySelectorAll('.flame');
+            flames.forEach(flame => {
+                flame.classList.remove('blown-out');
+            });
+        }
+
+        function toggleMusic() {
+            const playBtn = document.getElementById('playBtn');
+            if (musicPlaying) {
+                playBtn.textContent = '▶';
+                audio.pause();
+                musicPlaying = false;
+            } else {
+                playBtn.textContent = '⏸';
+                audio.play().catch(e => {
+                    console.log('Music file not found or cannot be played:', e);
+                    playBtn.textContent = '❌';
+                    setTimeout(() => {
+                        playBtn.textContent = '▶';
+                    }, 1000);
+                });
+                musicPlaying = true;
+            }
+        }
+
+        function playMusic() {
+            audio.play().then(() => {
+                const playBtn = document.getElementById('playBtn');
+                playBtn.textContent = '⏸';
+                musicPlaying = true;
+            }).catch(e => {
+                console.log('Music file not found or cannot be played:', e);
+            });
+        }
+
+        function loadVideo() {
+            const videoUrl = 'https://youtu.be/QHRXya0SIRQ?si=Mxxt17P0GXxDkqK8';
+            const videoId = getYouTubeVideoId(videoUrl);
+            
+            if (videoId) {
+                const placeholder = document.getElementById('videoPlaceholder');
+                const player = document.getElementById('youtubePlayer');
+                
+                placeholder.classList.add('hidden');
+                player.classList.add('show');
+                
+                player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            } else {
+                alert('Invalid YouTube URL. Please check the video link in the script.');
+            }
+        }
+
+        function hideVideo() {
+            const placeholder = document.getElementById('videoPlaceholder');
+            const player = document.getElementById('youtubePlayer');
+            
+            placeholder.classList.remove('hidden');
+            player.classList.remove('show');
+            
+            player.src = '';
+        }
+
+        function showMessage() {
+            const messageArea = document.getElementById('messageArea');
+            messageIndex = (messageIndex + 1) % birthdayMessages.length;
+            messageArea.style.opacity = '0';
+            setTimeout(() => {
+                messageArea.textContent = birthdayMessages[messageIndex];
+                messageArea.style.opacity = '1';
+            }, 300);
+        }
+
+        function addConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
+
